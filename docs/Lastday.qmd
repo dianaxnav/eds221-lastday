@@ -1,0 +1,33 @@
+---
+title: "Handout"
+format: html
+editor: visual
+execute:
+  warning: TRUE
+---
+
+## Lets take a look
+
+```{r}
+library(tidyverse)
+library(sf)
+library(here)
+library(janitor)
+```
+
+```{r}
+madison_lake <- read_csv(here::here("data", "ntl33_v7.csv"), na = "-999")
+
+madison_met <- read_csv(here::here("data", "ntl20_v6.csv"), na ="-999")
+```
+
+```{r}
+ggplot(madison_lake, aes(x = ice_duration, y = lakeid, color = lakeid)) +
+           geom_boxplot()
+```
+
+```{r}
+madison_mean <- madison_lake %>% 
+  group_by(year4) %>% 
+  summarize(mean_size = mean(ice_duration))
+```
